@@ -1,19 +1,20 @@
 import React, { useContext } from 'react';
+import PlanetContext from '../context/PlanetContext';
 import TableBody from './TableBody';
 import TableHeader from './TableHeader';
 
 function Table() {
-  // const { planets } = useContext();
- // console.log(planets);
+  const { filteredPlanets } = useContext(PlanetContext);
+
   return (
-    <div>
+    <table>
       <TableHeader />
-      {/* <tbody>
-        {planets.map((planet) => (
-          <TableBody key={ planet.name } />
+      <tbody>
+        {filteredPlanets.map((planet) => (
+          <TableBody planet={ planet } key={ planet.name } />
         ))}
-      </tbody> */}
-    </div>
+      </tbody>
+    </table>
   );
 }
 

@@ -5,20 +5,26 @@ import { fetchData } from '../services/fetchData';
 
 function PlanetProvider({ children }) {
   const [planets, setPlanets] = useState([]);
+  const [search, setSearch] = useState('');
+  const [filteredPlanets, setFilteredPlanets] = useState([]);
 
-  console.log(PlanetContext);
-
-  /*  useEffect(() => {
+  useEffect(() => {
     async function fetchDataApi() {
       const fetch = await fetchData();
       const fetchDataResult = fetch.results.map(({ residents, ...rest }) => rest);
       setPlanets(fetchDataResult);
+      setFilteredPlanets(fetchDataResult);
     }
     fetchDataApi();
-  }, []); */
+  }, []);
 
   const context = {
     planets,
+    setPlanets,
+    search,
+    setSearch,
+    filteredPlanets,
+    setFilteredPlanets,
   };
 
   return (
