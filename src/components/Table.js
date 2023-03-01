@@ -7,7 +7,7 @@ function Table() {
   const { filteredPlanets } = useContext(PlanetContext);
 
   return (
-    <table>
+    <table border="1">
       <TableHeader />
       <tbody>
         {filteredPlanets.map((planet) => (
