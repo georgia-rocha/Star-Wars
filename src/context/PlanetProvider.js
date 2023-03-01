@@ -8,6 +8,8 @@ function PlanetProvider({ children }) {
   const [search, setSearch] = useState('');
   const [filteredPlanets, setFilteredPlanets] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState([]);
+  const [selectColumn, setSelectedColumn] = useState([
+    'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water']);
   const [selected, setSelected] = useState({
     column: 'population',
     condition: 'maior que',
@@ -51,9 +53,11 @@ function PlanetProvider({ children }) {
     setFilteredPlanets,
     selected,
     setSelected,
-    filterPlanets,
-    setSelectedFilter,
     selectedFilter,
+    setSelectedFilter,
+    filterPlanets,
+    selectColumn,
+    setSelectedColumn,
   };
 
   return (

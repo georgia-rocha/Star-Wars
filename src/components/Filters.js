@@ -9,7 +9,8 @@ function Filters() {
     setSearch,
     setSelected,
     filterPlanets,
-    setSelectedFilter, selectedFilter } = useContext(PlanetContext);
+    setSelectedFilter,
+    selectedFilter, selectColumn, setSelectedColumn } = useContext(PlanetContext);
 
   function handleChangeSelected({ target: { name, value } }) {
     setSelected({ ...selected, [name]: value });
@@ -26,10 +27,12 @@ function Filters() {
   function handleFilterClick(filters) {
     setSelectedFilter(filters);
     filterPlanets(filters);
+    console.log(filters);
+    const newSelectColumn = selectColumn.filter((el) => el !== selected.column);
+    console.log(newSelectColumn);
+    setSelected({ ...selected, column: newSelectColumn[0] });
+    setSelectedColumn(newSelectColumn);
   }
-
-  const selectFilterColumn = [
-    'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
 
   return (
     <div>
@@ -46,11 +49,12 @@ function Filters() {
         Coluna
         <select
           name="column"
+          id="column-filter"
           data-testid="column-filter"
           value={ selectedFilter.column }
           onChange={ handleChangeSelected }
         >
-          { selectFilterColumn.map((column) => (
+          { selectColumn.map((column) => (
             <option key={ column } value={ column }>
               { column }
             </option>
@@ -81,7 +85,9 @@ function Filters() {
       <button
         type="button"
         data-testid="button-filter"
-        onClick={ () => handleFilterClick([...selectedFilter, selected]) }
+        onClick={
+          () => handleFilterClick([...selectedFilter, selected])
+        }
       >
         Filtrar
       </button>
