@@ -3,7 +3,6 @@ import { render, screen, waitFor } from '@testing-library/react';
 import App from '../App';
 import testData from '../../cypress/mocks/testData';
 import userEvent from '@testing-library/user-event';
-import { act } from 'react-dom/test-utils';
 
 describe('Testando a page Home', () => {
   beforeEach(() => {
@@ -16,28 +15,50 @@ describe('Testando a page Home', () => {
     const title = screen.getByText('Projeto Star Wars - Trybe' );
     expect(title).toBeInTheDocument();
   });
-  it('testa se o input do type text para fltar planetas por nome é rendezado', () => {
+  it('testa se o input do type text para filtrar planetas por nome é rendezado', async () => {
     render(<App />);
-    const inputFilterName = screen.getByTestId('name-filter');
-    expect(inputFilterName).toBeInTheDocument();
+    const searchFilterName = screen.getByRole('textbox');
+    expect(searchFilterName).toBeInTheDocument();
+    
   });
   it('testa se o select column é rendezado', async () => {
-    act(() => {
-      render(<App />);
+    render(<App />)
+    const labelColumn = screen.getByText(/coluna/i)
+    const selectColumn = screen.getByRole('combobox', { name: /coluna/i });
+    const selectOperator = screen.getByTestId('comparison-filter');
+    const inputNumber = screen.getByTestId('value-filter');
+    const buttonFilter = screen.getByTestId('button-filter');
+    const buttonRemoveAllFilter = screen.getByTestId('button-remove-filters');
+
+    expect(labelColumn).toBeInTheDocument();
+    expect(selectColumn).toBeInTheDocument();
+    await waitFor(() => {
+      const linePlanets = screen.getAllByRole('row');
+      expect(linePlanets.length).toBe(11);
     })
-      const labelColumn = screen.getByText(/coluna/i)
-      const selectColumn = screen.getByRole('combobox', { name: /coluna/i });
-      expect(labelColumn).toBeInTheDocument();
-      expect(selectColumn).toBeInTheDocument();
-      await waitFor(() => {
-        const linePlanets = screen.getAllByRole('row');
-        expect(linePlanets.length).toBe(11);
-      })
-      const inputFilterName = screen.getByRole('textbox');
-      userEvent.type(inputFilterName, 'oo');
-      await waitFor(() => {
-        const linePlanets = screen.getAllByRole('row');
-        expect(linePlanets.length).toBe(3);
-      })
+    const searchFilterName = screen.getByRole('textbox');
+    userEvent.type(searchFilterName, 'oo');
+    await waitFor(() => {
+      const linePlanets = screen.getAllByRole('row');
+      expect(linePlanets.length).toBe(3);
+    });
+    userEvent.clear(searchFilterName);
+    await waitFor(() => {
+      const linePlanets = screen.getAllByRole('row');
+      expect(linePlanets.length).toBe(11);
+    });
+    userEvent.selectOptions(selectColumn, 'diameter');
+    userEvent.selectOptions(selectOperator, 'menor que');
+    userEvent.type(inputNumber, '7200');
+    userEvent.click(buttonFilter);
+    await waitFor(() => {
+      const linePlanets = screen.getAllByRole('row');
+      expect(linePlanets.length).toBe(2);
+    });
+    userEvent.click(buttonRemoveAllFilter);
+    await waitFor(() => {
+      const linePlanets = screen.getAllByRole('row');
+      expect(linePlanets.length).toBe(11);
+    });
   });
 });
