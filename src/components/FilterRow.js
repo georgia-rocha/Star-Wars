@@ -4,8 +4,6 @@ import PlanetContext from '../context/PlanetContext';
 function FilterRow() {
   const { selectedFilter,
     setSelectedFilter,
-    selectColumn,
-    setSelectedColumn,
     usedColumns,
     setUsedColumns,
     filterPlanets,

@@ -10,7 +10,6 @@ function Filters() {
     setSelected,
     setSelectedFilter,
     selectedFilter,
-    selectColumn,
     handleFilterClick,
     filterColumn,
     filterPlanets } = useContext(PlanetContext);
