@@ -10,6 +10,7 @@ function PlanetProvider({ children }) {
   const [selectedFilter, setSelectedFilter] = useState([]);
   const [selectColumn, setSelectedColumn] = useState([
     'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water']);
+  const [usedColumns, setUsedColumns] = useState([]);
   const [selected, setSelected] = useState({
     column: 'population',
     condition: 'maior que',
@@ -27,22 +28,45 @@ function PlanetProvider({ children }) {
   }, []);
 
   const filterPlanets = (allFilters) => {
+    let cloneApi = data;
+    console.log(cloneApi, allFilters);
     allFilters.forEach((filter) => {
-      const filtered = filteredPlanets.filter((planet) => {
-        switch (filter.condition) {
-        case 'maior que':
-          return Number(planet[filter.column]) > Number(filter.value);
-        case 'menor que':
-          return Number(planet[filter.column]) < Number(filter.value);
-        case 'igual a':
-          return Number(planet[filter.column]) === Number(filter.value);
-        default:
-          return true;
-        }
-      });
-      setFilteredPlanets(filtered);
+      // const filtered = cloneApi.filter((planet) => {
+      switch (filter.condition) {
+      case 'maior que':
+        cloneApi = cloneApi
+          .filter((planet) => Number(planet[filter.column]) > Number(filter.value));
+        break;
+      case 'menor que':
+        cloneApi = cloneApi
+          .filter((planet) => Number(planet[filter.column]) < Number(filter.value));
+        break;
+      case 'igual a':
+        cloneApi = cloneApi
+          .filter((planet) => Number(planet[filter.column]) === Number(filter.value));
+        break;
+      default:
+        break;
+      }
+      // });
     });
+    console.log('xablau');
+    console.log(cloneApi, 'aaa');
+    setFilteredPlanets(cloneApi);
   };
+
+  function handleFilterClick(filters) {
+    setSelectedFilter(filters);
+    filterPlanets(filters);
+
+    const newSelectColumn = selectColumn.filter((el) => el !== selected.column);
+    setSelected({ ...selected, column: newSelectColumn[0] });
+    // setSelectedColumn(newSelectColumn);
+    setUsedColumns([...usedColumns, selected.column]);
+  }
+
+  const filterColumn = selectColumn.filter((column) => !usedColumns.includes(column));
+  console.log(filterColumn);
 
   const context = {
     data,
@@ -58,6 +82,10 @@ function PlanetProvider({ children }) {
     filterPlanets,
     selectColumn,
     setSelectedColumn,
+    handleFilterClick,
+    usedColumns,
+    setUsedColumns,
+    filterColumn,
   };
 
   return (

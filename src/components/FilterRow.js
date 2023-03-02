@@ -2,20 +2,32 @@ import React, { useContext } from 'react';
 import PlanetContext from '../context/PlanetContext';
 
 function FilterRow() {
-  const { selectedFilter, setSelectedFilter } = useContext(PlanetContext);
+  const { selectedFilter,
+    setSelectedFilter,
+    selectColumn,
+    setSelectedColumn,
+    usedColumns,
+    setUsedColumns,
+    filterPlanets,
+  } = useContext(PlanetContext);
 
-  function handleClick(index) {
-    selectedFilter.splice(index, 1);
-    console.log(selectedFilter);
-    setSelectedFilter(selectedFilter);
-    console.log(selectedFilter);
+  function handleClickRemoveFilter(column) {
+    const removeFilter = selectedFilter.filter((el) => el.column !== column);
+
+    setSelectedFilter(removeFilter);
+
+    const newUsedColumn = usedColumns.filter((el) => el !== column);
+    setUsedColumns(newUsedColumn);
+    filterPlanets(removeFilter);
+
+    console.log(removeFilter);
   }
 
   return (
     <div>
       {
         selectedFilter.map((filter, index) => (
-          <div key={ index }>
+          <div key={ index } data-testid="filter">
             <p>
               {filter.column}
               {' '}
@@ -23,7 +35,12 @@ function FilterRow() {
               {' '}
               {filter.value}
             </p>
-            <button type="button" onClick={ () => handleClick(index) }>x</button>
+            <button
+              type="button"
+              onClick={ () => handleClickRemoveFilter(filter.column) }
+            >
+              x
+            </button>
           </div>
         ))
       }

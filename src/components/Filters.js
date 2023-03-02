@@ -8,9 +8,12 @@ function Filters() {
     search,
     setSearch,
     setSelected,
-    filterPlanets,
     setSelectedFilter,
-    selectedFilter, selectColumn, setSelectedColumn } = useContext(PlanetContext);
+    selectedFilter,
+    selectColumn,
+    handleFilterClick,
+    filterColumn,
+    filterPlanets } = useContext(PlanetContext);
 
   function handleChangeSelected({ target: { name, value } }) {
     setSelected({ ...selected, [name]: value });
@@ -24,15 +27,14 @@ function Filters() {
     setFilteredPlanets(filterByName);
   }
 
-  function handleFilterClick(filters) {
+  /*   function handleFilterClick(filters) {
     setSelectedFilter(filters);
     filterPlanets(filters);
-    console.log(filters);
+
     const newSelectColumn = selectColumn.filter((el) => el !== selected.column);
-    console.log(newSelectColumn);
     setSelected({ ...selected, column: newSelectColumn[0] });
     setSelectedColumn(newSelectColumn);
-  }
+  } */
 
   return (
     <div>
@@ -54,7 +56,7 @@ function Filters() {
           value={ selectedFilter.column }
           onChange={ handleChangeSelected }
         >
-          { selectColumn.map((column) => (
+          { filterColumn.map((column) => (
             <option key={ column } value={ column }>
               { column }
             </option>
@@ -93,8 +95,10 @@ function Filters() {
       </button>
       <button
         className="clear"
+        data-testid="button-remove-filters"
         onClick={ () => {
           setSelectedFilter([]);
+          filterPlanets([]);
         } }
       >
         REMOVER FILTROS

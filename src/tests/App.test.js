@@ -35,13 +35,9 @@ describe('Testando a page Home', () => {
       })
       const inputFilterName = screen.getByRole('textbox');
       userEvent.type(inputFilterName, 'oo');
-      
-      const planetTatooine = screen.getByRole('cell', { name: /tatooine/i });
-      const planetNaboo = screen.getByRole('cell', { name: /naboo/i });
-
-      expect(planetTatooine).toBeInTheDocument();
-      expect(planetNaboo).toBeInTheDocument();
-
-      const selectFilterColumn = ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
+      await waitFor(() => {
+        const linePlanets = screen.getAllByRole('row');
+        expect(linePlanets.length).toBe(3);
+      })
   });
 });
