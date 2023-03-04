@@ -21,7 +21,7 @@ describe('Testando a page Home', () => {
     expect(searchFilterName).toBeInTheDocument();
     
   });
-  it('testa se o select column é rendezado', async () => {
+  it('testa se as opções de filtros são renderizados na tela', async () => {
     render(<App />)
     const labelColumn = screen.getByText(/coluna/i)
     const selectColumn = screen.getByRole('combobox', { name: /coluna/i });
@@ -32,33 +32,74 @@ describe('Testando a page Home', () => {
 
     expect(labelColumn).toBeInTheDocument();
     expect(selectColumn).toBeInTheDocument();
+    expect(selectOperator).toBeInTheDocument();
+    expect(inputNumber).toBeInTheDocument();
+    expect(buttonFilter).toBeInTheDocument();
+    expect(buttonRemoveAllFilter).toBeInTheDocument();
+    
     await waitFor(() => {
       const linePlanets = screen.getAllByRole('row');
       expect(linePlanets.length).toBe(11);
-    })
+    });
+
+    //Testa se é possível fazer um filtro por nome e se a tabela atualiza removendo o nome
+    
     const searchFilterName = screen.getByRole('textbox');
     userEvent.type(searchFilterName, 'oo');
     await waitFor(() => {
       const linePlanets = screen.getAllByRole('row');
       expect(linePlanets.length).toBe(3);
     });
+
     userEvent.clear(searchFilterName);
     await waitFor(() => {
       const linePlanets = screen.getAllByRole('row');
       expect(linePlanets.length).toBe(11);
     });
-    userEvent.selectOptions(selectColumn, 'diameter');
-    userEvent.selectOptions(selectOperator, 'menor que');
-    userEvent.type(inputNumber, '7200');
+
+    //Testa se é possível fazer um filtro pelas opções de filtros
+
+    userEvent.selectOptions(selectColumn, 'rotation_period');
+    userEvent.selectOptions(selectOperator, 'igual a');
+    userEvent.type(inputNumber, '23');
     userEvent.click(buttonFilter);
+
+    await waitFor(async () => {
+      const linePlanets = screen.getAllByRole('row');
+      expect(linePlanets.length).toBe(4);
+
+      const filter = screen.getByTestId('filter');
+      expect(filter).toBeInTheDocument();
+
+      const btnFilter = screen.getByRole('button', { name: 'x' });
+      expect(btnFilter).toBeInTheDocument();
+      userEvent.click(btnFilter);
+
+      expect(filter).not.toBeInTheDocument();
+    });
+
+ 
+
+    //Testa o button de remover todos os filtros
+
+    userEvent.selectOptions(selectColumn, 'orbital_period');
+    userEvent.selectOptions(selectOperator, 'menor que');
+    userEvent.type(inputNumber, '350');
+    userEvent.click(buttonFilter);
+
     await waitFor(() => {
       const linePlanets = screen.getAllByRole('row');
-      expect(linePlanets.length).toBe(2);
+      expect(linePlanets.length).toBe(11);
     });
+
     userEvent.click(buttonRemoveAllFilter);
     await waitFor(() => {
       const linePlanets = screen.getAllByRole('row');
       expect(linePlanets.length).toBe(11);
     });
+
+
   });
+
+ 
 });
