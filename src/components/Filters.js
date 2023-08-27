@@ -41,8 +41,8 @@ function Filters() {
         />
         <img src={ icon } alt="search" className="w-8" />
       </label>
-      <div className="w-full">
-        <label htmlFor="column-filter">
+      <div className="w-full h-20 flex justify-around gap-7 grid-cols-7">
+        <label htmlFor="column-filter" className="flex flex-col">
           Coluna
           <select
             name="column"
@@ -58,7 +58,7 @@ function Filters() {
             ))}
           </select>
         </label>
-        <label htmlFor="comparison-filter">
+        <label htmlFor="comparison-filter" className="flex flex-col">
           Operador
           <select
             name="condition"
