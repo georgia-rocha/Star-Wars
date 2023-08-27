@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
+import icon from '../search.svg';
 import PlanetContext from '../context/PlanetContext';
+import SortFilter from './SortFilter';
 
 function Filters() {
   const { data,
@@ -26,82 +28,78 @@ function Filters() {
     setFilteredPlanets(filterByName);
   }
 
-  /*   function handleFilterClick(filters) {
-    setSelectedFilter(filters);
-    filterPlanets(filters);
-
-    const newSelectColumn = selectColumn.filter((el) => el !== selected.column);
-    setSelected({ ...selected, column: newSelectColumn[0] });
-    setSelectedColumn(newSelectColumn);
-  } */
-
   return (
-    <div>
-      <div>
+    <div className="flex flex-col items-center">
+      <label className="w-1/4 border-2 text-xl p-1 rounded-md text-white border-white flex m-6">
         <input
           type="text"
           data-testid="name-filter"
           placeholder="Filtrar por nome"
+          className="w-full h-full p-1 bg-transparent outline-none"
           value={ search }
           onChange={ ({ target: { value } }) => handleChange(value) }
         />
+        <img src={ icon } alt="search" className="w-8" />
+      </label>
+      <div className="w-full">
+        <label htmlFor="column-filter">
+          Coluna
+          <select
+            name="column"
+            id="column-filter"
+            data-testid="column-filter"
+            value={ selectedFilter.column }
+            onChange={ handleChangeSelected }
+          >
+            { filterColumn.map((column) => (
+              <option key={ column } value={ column }>
+                { column }
+              </option>
+            ))}
+          </select>
+        </label>
+        <label htmlFor="comparison-filter">
+          Operador
+          <select
+            name="condition"
+            data-testid="comparison-filter"
+            value={ selectedFilter.condition }
+            onChange={ handleChangeSelected }
+          >
+            <option value="maior que">maior que</option>
+            <option value="menor que">menor que</option>
+            <option value="igual a">igual a</option>
+          </select>
+        </label>
+        <input
+          type="number"
+          data-testid="value-filter"
+          name="value"
+          placeholder="Digite um valor"
+          value={ selected.value }
+          onChange={ handleChangeSelected }
+        />
+        <button
+          type="button"
+          data-testid="button-filter"
+          onClick={
+            () => handleFilterClick([...selectedFilter, selected])
+          }
+        >
+          Filtrar
+        </button>
+        <SortFilter />
+        <button
+          className="clear"
+          data-testid="button-remove-filters"
+          onClick={ () => {
+            setSelectedFilter([]);
+            filterPlanets([]);
+          } }
+        >
+          REMOVER FILTROS
+        </button>
       </div>
-      <label htmlFor="column-filter">
-        Coluna
-        <select
-          name="column"
-          id="column-filter"
-          data-testid="column-filter"
-          value={ selectedFilter.column }
-          onChange={ handleChangeSelected }
-        >
-          { filterColumn.map((column) => (
-            <option key={ column } value={ column }>
-              { column }
-            </option>
-          ))}
-        </select>
-      </label>
-      <label htmlFor="comparison-filter">
-        Operador
-        <select
-          name="condition"
-          data-testid="comparison-filter"
-          value={ selectedFilter.condition }
-          onChange={ handleChangeSelected }
-        >
-          <option value="maior que">maior que</option>
-          <option value="menor que">menor que</option>
-          <option value="igual a">igual a</option>
-        </select>
-      </label>
-      <input
-        type="number"
-        data-testid="value-filter"
-        name="value"
-        placeholder="Digite um valor"
-        value={ selected.value }
-        onChange={ handleChangeSelected }
-      />
-      <button
-        type="button"
-        data-testid="button-filter"
-        onClick={
-          () => handleFilterClick([...selectedFilter, selected])
-        }
-      >
-        Filtrar
-      </button>
-      <button
-        className="clear"
-        data-testid="button-remove-filters"
-        onClick={ () => {
-          setSelectedFilter([]);
-          filterPlanets([]);
-        } }
-      >
-        REMOVER FILTROS
-      </button>
     </div>
   );
 }
