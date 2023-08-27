@@ -7,10 +7,9 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'backgroundStar': "url(\'/star-wars.svg\')",
-    },
+        backgroundStar: 'url(\'/star-wars.svg\')',
+      },
     },
   },
   plugins: [],
-}
-
+};

@@ -29,7 +29,7 @@ function Filters() {
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center mb-8">
       <label className="w-1/4 border-2 text-xl p-1 rounded-md text-white border-white flex m-6">
         <input
           type="text"
