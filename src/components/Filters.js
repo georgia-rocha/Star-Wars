@@ -29,24 +29,25 @@ function Filters() {
   }
 
   return (
-    <div className="flex flex-col items-center mb-8">
-      <label className="w-1/4 border-2 text-xl p-1 rounded-md text-white border-white flex m-6">
+    <div className="flex flex-col items-center mb-8 w-full">
+      <label className="w-2/4 border-2 text-xl p-1 rounded-md text-white border-white flex m-6">
         <input
           type="text"
           data-testid="name-filter"
           placeholder="Filtrar por nome"
-          className="w-full h-full p-1 bg-transparent outline-none"
+          className="w-full bg-transparent outline-none"
           value={ search }
           onChange={ ({ target: { value } }) => handleChange(value) }
         />
         <img src={ icon } alt="search" className="w-8" />
       </label>
-      <div className="w-full h-20 flex justify-around gap-7 grid-cols-7">
-        <label htmlFor="column-filter" className="flex flex-col">
+      <div className="h-10 flex justify-around gap-7 grid-cols-7 mx-3 my-2 items-center">
+        <label htmlFor="column-filter" className="flex flex-col text-white">
           Coluna
           <select
             name="column"
             id="column-filter"
+            className="p-2 bg-transparent border-b-2"
             data-testid="column-filter"
             value={ selectedFilter.column }
             onChange={ handleChangeSelected }
@@ -58,11 +59,12 @@ function Filters() {
             ))}
           </select>
         </label>
-        <label htmlFor="comparison-filter" className="flex flex-col">
+        <label htmlFor="comparison-filter" className="flex flex-col text-white">
           Operador
           <select
             name="condition"
             data-testid="comparison-filter"
+            className="p-2 bg-transparent border-b-2"
             value={ selectedFilter.condition }
             onChange={ handleChangeSelected }
           >
@@ -77,11 +79,13 @@ function Filters() {
           name="value"
           placeholder="Digite um valor"
           value={ selected.value }
+          className="bg-transparent text-white border-2 h-16 w-24 border-yellow-500 text-center outline-none rounded-md"
           onChange={ handleChangeSelected }
         />
         <button
           type="button"
           data-testid="button-filter"
+          className="text-white border-2 h-16 w-24 border-yellow-500 rounded-md"
           onClick={
             () => handleFilterClick([...selectedFilter, selected])
           }
@@ -90,7 +94,7 @@ function Filters() {
         </button>
         <SortFilter />
         <button
-          className="clear"
+          className="clear text-white border-2 border-yellow-400 h-16 w-24 rounded-md"
           data-testid="button-remove-filters"
           onClick={ () => {
             setSelectedFilter([]);

@@ -5,7 +5,7 @@ function TableHeader() {
     'Climate', 'Gravity', 'Terrain', 'Surface Water',
     'Population', 'Films', 'Created', 'Edited', 'URL'];
   return (
-    <thead>
+    <thead className="bg-zinc-800 text-white text-center">
       <tr>
         { header.map((h, index) => (
           <th key={ index }>{ h }</th>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function TableBody({ planet }) {
   return (
-    <tr>
+    <tr className="h-20 border-b-2 border-white bg-slate-500 opacity-90 text-white font-semibold text-lg text-center">
       <td>{planet?.name}</td>
       <td>{planet?.rotation_period}</td>
       <td>{planet?.orbital_period}</td>
