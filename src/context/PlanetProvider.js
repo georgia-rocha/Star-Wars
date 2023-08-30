@@ -29,7 +29,6 @@ function PlanetProvider({ children }) {
 
   const filterPlanets = (allFilters) => {
     let cloneApi = data;
-    console.log(cloneApi, allFilters);
     allFilters.forEach((filter) => {
       // const filtered = cloneApi.filter((planet) => {
       switch (filter.condition) {
@@ -50,8 +49,6 @@ function PlanetProvider({ children }) {
       }
       // });
     });
-    console.log('xablau');
-    console.log(cloneApi, 'aaa');
     setFilteredPlanets(cloneApi);
   };
 
@@ -61,12 +58,10 @@ function PlanetProvider({ children }) {
 
     const newSelectColumn = selectColumn.filter((el) => el !== selected.column);
     setSelected({ ...selected, column: newSelectColumn[0] });
-    // setSelectedColumn(newSelectColumn);
     setUsedColumns([...usedColumns, selected.column]);
   }
 
   const filterColumn = selectColumn.filter((column) => !usedColumns.includes(column));
-  console.log(filterColumn);
 
   const context = {
     data,

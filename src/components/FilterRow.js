@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PlanetContext from '../context/PlanetContext';
-//  s import remove from ''
+import remove from '../remove.png';
 
 function FilterRow() {
   const { selectedFilter,
@@ -18,15 +18,13 @@ function FilterRow() {
     const newUsedColumn = usedColumns.filter((el) => el !== column);
     setUsedColumns(newUsedColumn);
     filterPlanets(removeFilter);
-
-    console.log(removeFilter);
   }
 
   return (
     <div>
       {
         selectedFilter.map((filter, index) => (
-          <div key={ index } data-testid="filter">
+          <div key={ index } data-testid="filter" className="flex text-white font-bold justify-center">
             <p>
               {filter.column}
               {' '}
@@ -38,7 +36,7 @@ function FilterRow() {
               type="button"
               onClick={ () => handleClickRemoveFilter(filter.column) }
             >
-              x
+              <img src={ remove } alt="icon remove" className="h-6 pl-2" />
             </button>
           </div>
         ))
