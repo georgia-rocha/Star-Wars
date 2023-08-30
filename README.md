@@ -25,13 +25,13 @@ Certifique-se de ter os seguintes requisitos instalados em seu ambiente de desen
 1. Clone este repositório para o seu sistema local:
 
 ```bash
-git clone git@github.com:georgia-rocha/startWars.git
+git clone git@github.com:georgia-rocha/Star-Wars.git
 ```
 
 2. Entre na pasta que você acabou de clonar:
 
 ```bash
-  cd startWars
+  cd Star-Wars
 ```
 
 3.  Instale as dependências:
