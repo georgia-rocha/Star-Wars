@@ -77,7 +77,7 @@ function Filters() {
           type="number"
           data-testid="value-filter"
           name="value"
-          placeholder="Digite um valor"
+          placeholder="Digite"
           value={ selected.value }
           className="bg-transparent text-white border-2 h-16 w-24 border-yellow-500 text-center outline-none rounded-md"
           onChange={ handleChangeSelected }
