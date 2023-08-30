@@ -24,7 +24,11 @@ function FilterRow() {
     <div>
       {
         selectedFilter.map((filter, index) => (
-          <div key={ index } data-testid="filter" className="flex text-white font-bold justify-center">
+          <div
+            key={ index }
+            data-testid="filter"
+            className="flex text-white font-bold justify-center"
+          >
             <p>
               {filter.column}
               {' '}

@@ -30,7 +30,10 @@ function Filters() {
 
   return (
     <div className="flex flex-col items-center mb-8">
-      <label className="w-2/4 border-2 text-xl pl-1 rounded-md text-white border-white flex m-6">
+      <label
+        className="w-2/4 border-2 text-xl
+          pl-1 rounded-md text-white border-white flex m-6"
+      >
         <input
           type="text"
           data-testid="name-filter"
@@ -41,7 +44,10 @@ function Filters() {
         />
         <img src={ icon } alt="search" className="w-7 p-1" />
       </label>
-      <div className="h-10 flex justify-around gap-7 font-bold grid-cols-7 my-2 items-center w-full">
+      <div
+        className="h-10 flex justify-around gap-7
+          font-bold grid-cols-7 my-2 items-center w-full"
+      >
         <label htmlFor="column-filter" className="flex flex-col text-white">
           Coluna
           <select
@@ -79,7 +85,8 @@ function Filters() {
           name="value"
           placeholder="Digite"
           value={ selected.value }
-          className="bg-transparent text-white border-2 h-16 w-24 border-yellow-500 text-center outline-none rounded-md"
+          className="bg-transparent text-white border-2
+            h-16 w-24 border-yellow-500 text-center outline-none rounded-md"
           onChange={ handleChangeSelected }
         />
         <button

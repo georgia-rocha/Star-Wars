@@ -30,7 +30,6 @@ function PlanetProvider({ children }) {
   const filterPlanets = (allFilters) => {
     let cloneApi = data;
     allFilters.forEach((filter) => {
-      // const filtered = cloneApi.filter((planet) => {
       switch (filter.condition) {
       case 'maior que':
         cloneApi = cloneApi
@@ -47,7 +46,6 @@ function PlanetProvider({ children }) {
       default:
         break;
       }
-      // });
     });
     setFilteredPlanets(cloneApi);
   };

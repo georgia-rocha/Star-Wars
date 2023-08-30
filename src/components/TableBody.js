@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 
 function TableBody({ planet }) {
   return (
-    <tr className="border-b-4 border-white bg-gray-700 opacity-90 text-white font-semibold text-center">
+    <tr
+      className="border-b-4 border-white
+        bg-gray-700 opacity-90 text-white font-semibold text-center"
+    >
       <td className="border-r-4 px-4">{planet?.name}</td>
       <td className="border-r-4 px-16">{planet?.rotation_period}</td>
       <td className="border-r-4 px-10">{planet?.orbital_period}</td>
